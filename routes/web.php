@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,8 @@ Route::get('/.well-known/assetlinks.json', function () {
 
     // Return the JSON data as a response
     return response()->json($jsonData);
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
 });

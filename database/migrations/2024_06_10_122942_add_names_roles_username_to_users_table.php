@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('firstName');
             $table->string('lastName');
             $table->string('username');
-            $table->integer('roleNo');
-            $table->foreign('roleNo')->references('roleNo')->on('roles')->onUpdate('cascade')->onDelete('cascade');
+            // $table->unsignedBigInteger('role_id')->change();
+            // $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -26,7 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('firstName');
+            $table->dropColumn('lastName');
+            $table->dropColumn('username');
+            // $table->dropColumn('role_id');
         });
     }
 };

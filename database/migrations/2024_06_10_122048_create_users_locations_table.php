@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users_locations', function (Blueprint $table) {
-            $table->foreignId('id')->constrained(
-                table: 'users', indexName:'id3', column:'id'
-            )->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('locationID');
-            $table->foreign('locationID')->references('locationID')->on('locations')->onUpdate('cascade')->onDelete('cascade');
+            $table->id();
             $table->time('time');
             $table->integer('distance');
             $table->integer('rating');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('location_id');
+            $table->timestamps();
+
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

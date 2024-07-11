@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->integer('groupID')->primary();
-            $table->string('groupName',25);
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('guide_id');
+            $table->string('image_id')->default('defaultProfilePic');
+            $table->foreign('guide_id')->references('id')->on('users');
+            $table->timestamps();
         });
     }
 

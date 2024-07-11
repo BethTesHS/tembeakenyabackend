@@ -11,6 +11,6 @@ class APILogoutResponse implements LogoutResponseContract
     {
         return response()->json([
             'message' => 'Logged out successfully.'
-        ]);
+        ], 204);
     }
 }

@@ -1,5 +1,12 @@
-[{
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target" : { "namespace": "android_app", "package_name": "com.codeclimbers.tembeakenya",
-                 "sha256_cert_fingerprints": ["BB:D3:C7:5F:E8:FD:88:13:C4:2C:C5:AA:28:68:C9:65:8D:E2:C3:26:45:29:01:E0:6B:33:DC:3E:C0:0C:61:02"] }
-  }]
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.codeclimbers.tembeakenya",
+            "sha256_cert_fingerprints": [
+                "BB:D3:C7:5F:E8:FD:88:13:C4:2C:C5:AA:28:68:C9:65:8D:E2:C3:26:45:29:01:E0:6B:33:DC:3E:C0:0C:61:02"
+            ]
+        }
+    }
+]

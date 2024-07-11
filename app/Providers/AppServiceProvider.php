@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,8 +24,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        ResetPassword::createUrlUsing(function ($notifiable, $token) {
-            return 'http://192.168.100.27:8000/api/v1/reset-password/{$token}?email={$notifiable->getEmailForPasswordReset()}';
+        JsonResource::withoutWrapping();
+        VerifyEmail::toMailUsing(function (object $notifiable, string $verificationUrl) {
+            return (new MailMessage)
+            ->subject(Lang::get('Verify Email Address'))
+            ->line(Lang::get('Please click the button below to verify your email address.'))
+            ->action(Lang::get('Verify Email Address'), $verificationUrl)
+            ->line(Lang::get('If you did not create an account, no further action is required.'));
+        });
+        ResetPassword::createUrlUsing(function($notifiable, $token) {
+            return url(route('api.password.reset', [
+                'token' => $token,
+                'email' => $notifiable->getEmailForPasswordReset(),
+            ], false));
         });
     }
 }

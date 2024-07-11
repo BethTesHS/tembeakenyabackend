@@ -8,34 +8,44 @@ primary_region = 'jnb'
 console_command = 'php /var/www/html/artisan tinker'
 
 [build]
-  [build.args]
-    NODE_VERSION = '18'
-    PHP_VERSION = '8.1'
+[build.args]
+NODE_VERSION = '18'
+PHP_VERSION = '8.1'
 
 [env]
-  APP_ENV = 'production'
-  DB_CONNECTION = "mysql"
-  DB_HOST = "tembeakenya-mysqlapp.internal"
-  DB_DATABASE = "tkbdb"
-  LOG_CHANNEL = 'stderr'
-  LOG_LEVEL = 'info'
-  LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
-  SESSION_DRIVER = 'cookie'
-  SESSION_SECURE_COOKIE = 'true'
-  SESSION_DOMAIN = 'tembeakenyabackend.fly.dev'
+APP_ENV = 'production'
+APP_NAME = 'Tembea Kenya'
+DB_CONNECTION = "mysql"
+DB_HOST = "tembeakenya-mysqlapp.internal"
+DB_DATABASE = "tkbdb"
+LOG_CHANNEL = 'stderr'
+LOG_LEVEL = 'info'
+LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
+
+SESSION_DRIVER = 'cookie'
+SESSION_SECURE_COOKIE = 'true'
+SESSION_DOMAIN = 'tembeakenyabackend.fly.dev'
+
+MAIL_MAILER='smtp'
+MAIL_HOST='smtp.gmail.com'
+MAIL_ENCRYPTION='tls'
+MAIL_PORT = '587'
+MAIL_USERNAME = "codeclimberske@gmail.com"
+MAIL_FROM_ADDRESS = "no-reply@tembeakenya.co.ke"
+MAIL_FROM_NAME = "Tembea Kenya"
 
 [http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+internal_port = 8080
+force_https = true
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+processes = ['app']
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
+memory = '1gb'
+cpu_kind = 'shared'
+cpus = 1
 
 [deploy]
-  release_command = "php /var/www/html/artisan migrate --force"
+release_command = "php /var/www/html/artisan migrate:fresh --seed --force"
